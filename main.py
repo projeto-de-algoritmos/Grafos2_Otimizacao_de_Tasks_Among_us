@@ -1,6 +1,8 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import networkx as nx
+from dijkstra import dijkstra
+from gera_grafo import gera_grafo, mapear_perguntas_nos
 
 def mapa():
     # Criar janela
@@ -19,6 +21,7 @@ def mapa():
     rotulo_fundo.place(x=0, y=0, relwidth=1, relheight=1)  # Posicionar o rótulo para preencher toda a janela
 
     mapa.mainloop()
+
 
 def center_window(window):
     # Função para centralizar uma janela na tela
@@ -50,6 +53,7 @@ def adicionar_missoes():
     # Função para atualizar o dicionário de respostas
     def atualizar_respostas(pergunta):
         perguntas_vars[pergunta].set(not perguntas_vars[pergunta].get())
+
 
 # Adicionar as perguntas
 def adicionar_missoes():
@@ -95,13 +99,25 @@ def adicionar_missoes():
         chk_pergunta = tk.Checkbutton(janela_tasks, text=pergunta, variable=pergunta_var)
         chk_pergunta.pack(anchor="w", padx=20, pady=5)
 
-
     def confirmar():
-        respostas = []
+        G = nx.Graph()
+        G = gera_grafo(G)
+        mapeamento = mapear_perguntas_nos(perguntas)
+        respostas = {}
         for pergunta, pergunta_var in zip(perguntas, perguntas_vars):
             if pergunta_var.get():
-                respostas.append(pergunta)
+                no = mapeamento[pergunta]
+                respostas[pergunta] = no
         janela_tasks.destroy()
+
+        resultado = dijkstra(G, 'caf', respostas)
+
+        if resultado is not None:
+            print("Caminho mínimo encontrado:")
+            print(resultado)
+        else:
+            print("Não foi possível encontrar um caminho para os nós alvo.")
+
         print("Respostas", f"As perguntas selecionadas foram: {respostas}")
         mapa()
 
@@ -109,12 +125,12 @@ def adicionar_missoes():
     btn_confirmar = tk.Button(janela_tasks, text="Confirmar", command=confirmar)
     btn_confirmar.pack(pady=10)
 
+
 def sair():
     # Função que será executada quando o botão "Sair" for pressionado
     janela_principal.quit()
 
 
-# Criação da janela principal
 janela_principal = tk.Tk()
 janela_principal.title("Otimização de Tasks Among Us")
 janela_principal.geometry("800x600")
@@ -136,43 +152,3 @@ btn_sair.pack()
 
 # Loop principal da janela
 janela_principal.mainloop()
-
-# Cria o grafo
-def grafo(num_no):
-    G = nx.Graph()
-
-    # Adiciona arestas com pesos do mapa
-    G.add_edge('caf', 'arma', peso=5)
-    G.add_edge('arma', 'o2', peso=3)
-    G.add_edge('arma', 'navega', peso=5)
-    G.add_edge('arma', 'escudo', peso=8)
-    G.add_edge('escudo', 'comun', peso=3)
-    G.add_edge('caf', 'adm', peso=7)
-    G.add_edge('caf', 'armazena', peso=10)
-    G.add_edge('armazena', 'comun', peso=4)
-    G.add_edge('armazena', 'eletri', peso=6)
-    G.add_edge('caf', 'enfermaria', peso=6)
-    G.add_edge('caf', 'motorSup', peso=10)
-    G.add_edge('motorSup', 'reator', peso=6)
-    G.add_edge('motorSup', 'motorInf', peso=8)
-    G.add_edge('motorInf', 'eletri', peso=7)
-
-    # Adiciona arestas com pesos das tasks
-    G.add_edge('caf', 'fiacaoCaf', peso=2)
-    G.add_edge('caf', 'esvaziaLixoCaf', peso=2)
-    G.add_edge('armazena', 'fiacaoArmazena', peso=2)
-    G.add_edge('armazena', 'esvaziaEscotilhaArmazena', peso=2)
-    G.add_edge('armazena', 'esvaziaLixoArmazena', peso=2)
-    G.add_edge('arma', 'asteroide', peso=1)
-    G.add_edge('adm', 'cartaoAdm', peso=1)
-    G.add_edge('enfermaria', 'scanEnfer', peso=1)
-    G.add_edge('enfermaria', 'inspecAmostraEnfer', peso=1)
-    G.add_edge('reator', 'desbloqReator', peso=1)
-    G.add_edge('reator', 'ligaReator', peso=1)
-    G.add_edge('o2', 'esvaziaEscotilhaO2', peso=1)
-    G.add_edge('o2', 'limpaFiltroO2', peso=1)
-    G.add_edge('navega', 'estabilizaDirecaoNavega', peso=1)
-    G.add_edge('navega', 'mapeaRotaNavega', peso=1)
-    G.add_edge('eletri', 'fiacaoEletri', peso=1)
-    G.add_edge('eletri', 'calibraDistribuEletri', peso=1)
-    G.add_edge('escudo', 'reativaEscudo', peso=1)
