@@ -1,6 +1,41 @@
 def gera_grafo(G):
     # Adiciona arestas com pesos do mapa
     def gera_grafo(G):
+        # Adiciona nós nas salas
+        G.add_node('caf')
+        G.add_node('arma')
+        G.add_node('o2')
+        G.add_node('navega')
+        G.add_node('escudo')
+        G.add_node('comun')
+        G.add_node('adm')
+        G.add_node('armazena')
+        G.add_node('eletri')
+        G.add_node('enfermaria')
+        G.add_node('motorSup')
+        G.add_node('reator')
+        G.add_node('motorInf')
+
+        # Adiciona os nós das tasks
+        G.add_node('fiacaoCaf')
+        G.add_node('esvaziaLixoCaf')
+        G.add_node('fiacaoArmazena')
+        G.add_node('esvaziaEscotilhaArmazena')
+        G.add_node('esvaziaLixoArmazena')
+        G.add_node('asteroide')
+        G.add_node('cartaoAdm')
+        G.add_node('scanEnfer')
+        G.add_node('inspecAmostraEnfer')
+        G.add_node('desbloqReator')
+        G.add_node('ligaReator')
+        G.add_node('esvaziaEscotilhaO2')
+        G.add_node('limpaFiltroO2')
+        G.add_node('estabilizaDirecaoNavega')
+        G.add_node('mapeaRotaNavega')
+        G.add_node('fiacaoEletri')
+        G.add_node('calibraDistribuEletri')
+        G.add_node('reativaEscudo')
+
         # Adiciona arestas com pesos do mapa
         G.add_edge('caf', 'arma', peso=5)
         G.add_edge('arma', 'o2', peso=3)
