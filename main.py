@@ -176,7 +176,3 @@ def grafo(num_no):
     G.add_edge('eletri', 'fiacaoEletri', peso=1)
     G.add_edge('eletri', 'calibraDistribuEletri', peso=1)
     G.add_edge('escudo', 'reativaEscudo', peso=1)
-
-    # Imprime as arestas com seus pesos
-    for u, v, d in G.edges(data=True):
-        print(f"{u} - {v}: {d['weight']}")
