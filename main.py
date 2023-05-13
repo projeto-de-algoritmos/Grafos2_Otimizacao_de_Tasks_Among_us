@@ -32,7 +32,6 @@ def adicionar_missoes():
     def atualizar_respostas(pergunta):
         perguntas_vars[pergunta].set(not perguntas_vars[pergunta].get())
 
-
 # Adicionar as perguntas
 def adicionar_missoes():
     # Função que será executada quando o botão "Adicionar Missões" for pressionado
@@ -77,6 +76,7 @@ def adicionar_missoes():
         chk_pergunta = tk.Checkbutton(janela_tasks, text=pergunta, variable=pergunta_var)
         chk_pergunta.pack(anchor="w", padx=20, pady=5)
 
+
     def confirmar():
         respostas = []
         for pergunta, pergunta_var in zip(perguntas, perguntas_vars):
@@ -118,21 +118,45 @@ btn_sair.pack()
 janela_principal.mainloop()
 
 # Cria o grafo
-def grafo():
+def grafo(num_no):
     G = nx.Graph()
 
-    # Adiciona arestas com pesos
-    G.add_edge('A', 'B', weight=4)
-    G.add_edge('B', 'C', weight=8)
-    G.add_edge('C', 'D', weight=7)
-    G.add_edge('D', 'E', weight=9)
-    G.add_edge('E', 'F', weight=10)
-    G.add_edge('F', 'G', weight=2)
-    G.add_edge('G', 'H', weight=1)
-    G.add_edge('H', 'A', weight=8)
-    G.add_edge('B', 'H', weight=11)
-    G.add_edge('H', 'I', weight=7)
-    G.add_edge('I', 'C', weight=2)
-    G.add_edge('C', 'F', weight=4)
-    G.add_edge('I', 'G', weight=6)
-    G.add_edge('D', 'F', weight=14)
+    # Adiciona arestas com pesos do mapa
+    G.add_edge('caf', 'arma', peso=5)
+    G.add_edge('arma', 'o2', peso=3)
+    G.add_edge('arma', 'navega', peso=5)
+    G.add_edge('arma', 'escudo', peso=8)
+    G.add_edge('escudo', 'comun', peso=3)
+    G.add_edge('caf', 'adm', peso=7)
+    G.add_edge('caf', 'armazena', peso=10)
+    G.add_edge('armazena', 'comun', peso=4)
+    G.add_edge('armazena', 'eletri', peso=6)
+    G.add_edge('caf', 'enfermaria', peso=6)
+    G.add_edge('caf', 'motorSup', peso=10)
+    G.add_edge('motorSup', 'reator', peso=6)
+    G.add_edge('motorSup', 'motorInf', peso=8)
+    G.add_edge('motorInf', 'eletri', peso=7)
+
+    # Adiciona arestas com pesos das tasks
+    G.add_edge('caf', 'fiacaoCaf', peso=2)
+    G.add_edge('caf', 'esvaziaLixoCaf', peso=2)
+    G.add_edge('armazena', 'fiacaoArmazena', peso=2)
+    G.add_edge('armazena', 'esvaziaEscotilhaArmazena', peso=2)
+    G.add_edge('armazena', 'esvaziaLixoArmazena', peso=2)
+    G.add_edge('arma', 'asteroide', peso=1)
+    G.add_edge('adm', 'cartaoAdm', peso=1)
+    G.add_edge('enfermaria', 'scanEnfer', peso=1)
+    G.add_edge('enfermaria', 'inspecAmostraEnfer', peso=1)
+    G.add_edge('reator', 'desbloqReator', peso=1)
+    G.add_edge('reator', 'ligaReator', peso=1)
+    G.add_edge('o2', 'esvaziaEscotilhaO2', peso=1)
+    G.add_edge('o2', 'limpaFiltroO2', peso=1)
+    G.add_edge('navega', 'estabilizaDirecaoNavega', peso=1)
+    G.add_edge('navega', 'mapeaRotaNavega', peso=1)
+    G.add_edge('eletri', 'fiacaoEletri', peso=1)
+    G.add_edge('eletri', 'calibraDistribuEletri', peso=1)
+    G.add_edge('escudo', 'reativaEscudo', peso=1)
+
+    # Imprime as arestas com seus pesos
+    for u, v, d in G.edges(data=True):
+        print(f"{u} - {v}: {d['weight']}")
