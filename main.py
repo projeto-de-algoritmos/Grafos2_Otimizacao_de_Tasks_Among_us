@@ -128,7 +128,7 @@ frame = tk.Frame(janela_principal)
 frame.pack(pady=200)
 
 # Criação dos botões
-btn_adicionar_missoes = tk.Button(frame, text="Adicionar Missões", command=adicionar_missoes, width=30, height=2)
+btn_adicionar_missoes = tk.Button(frame, text="Adicionar Tasks", command=adicionar_missoes, width=30, height=2)
 btn_adicionar_missoes.pack(pady=10)
 
 btn_sair = tk.Button(frame, text="Sair", command=sair, width=30, height=2)
