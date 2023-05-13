@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-
+import networkx as nx
 
 def mapa():
     # Criar janela
@@ -109,7 +109,6 @@ def adicionar_missoes():
     btn_confirmar = tk.Button(janela_tasks, text="Confirmar", command=confirmar)
     btn_confirmar.pack(pady=10)
 
-
 def sair():
     # Função que será executada quando o botão "Sair" for pressionado
     janela_principal.quit()
@@ -138,3 +137,22 @@ btn_sair.pack()
 # Loop principal da janela
 janela_principal.mainloop()
 
+# Cria o grafo
+def grafo():
+    G = nx.Graph()
+
+    # Adiciona arestas com pesos
+    G.add_edge('A', 'B', weight=4)
+    G.add_edge('B', 'C', weight=8)
+    G.add_edge('C', 'D', weight=7)
+    G.add_edge('D', 'E', weight=9)
+    G.add_edge('E', 'F', weight=10)
+    G.add_edge('F', 'G', weight=2)
+    G.add_edge('G', 'H', weight=1)
+    G.add_edge('H', 'A', weight=8)
+    G.add_edge('B', 'H', weight=11)
+    G.add_edge('H', 'I', weight=7)
+    G.add_edge('I', 'C', weight=2)
+    G.add_edge('C', 'F', weight=4)
+    G.add_edge('I', 'G', weight=6)
+    G.add_edge('D', 'F', weight=14)
