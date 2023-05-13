@@ -1,5 +1,24 @@
 import tkinter as tk
+from PIL import ImageTk, Image
 import networkx as nx
+
+def mapa():
+    # Criar janela
+    mapa = tk.Toplevel(janela_principal)
+    mapa.resizable(False, False)
+    mapa.geometry("960x540")
+    mapa.title("Mapa de Tasks")
+
+    # Carregar a imagem de fundo
+    imagem_fundo = Image.open("among-us-skeld.png")
+    imagem_fundo = imagem_fundo.resize((960, 540), Image.ANTIALIAS)  # Ajustar o tamanho da imagem conforme necessário
+    imagem_fundo = ImageTk.PhotoImage(imagem_fundo)
+
+    # Criar um rótulo para exibir a imagem de fundo
+    rotulo_fundo = tk.Label(mapa, image=imagem_fundo)
+    rotulo_fundo.place(x=0, y=0, relwidth=1, relheight=1)  # Posicionar o rótulo para preencher toda a janela
+
+    mapa.mainloop()
 
 def center_window(window):
     # Função para centralizar uma janela na tela
@@ -84,6 +103,7 @@ def adicionar_missoes():
                 respostas.append(pergunta)
         janela_tasks.destroy()
         print("Respostas", f"As perguntas selecionadas foram: {respostas}")
+        mapa()
 
     # Botão para confirmar as respostas
     btn_confirmar = tk.Button(janela_tasks, text="Confirmar", command=confirmar)
@@ -108,7 +128,7 @@ frame = tk.Frame(janela_principal)
 frame.pack(pady=200)
 
 # Criação dos botões
-btn_adicionar_missoes = tk.Button(frame, text="Adicionar Missões", command=adicionar_missoes, width=30, height=2)
+btn_adicionar_missoes = tk.Button(frame, text="Adicionar Tasks", command=adicionar_missoes, width=30, height=2)
 btn_adicionar_missoes.pack(pady=10)
 
 btn_sair = tk.Button(frame, text="Sair", command=sair, width=30, height=2)
