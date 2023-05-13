@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 
 
 def center_window(window):
@@ -66,8 +65,12 @@ def adicionar_missoes():
         "Passar o Cartão - Admin",
         "Reativar Escudos - Shields"
     ]
-
     perguntas_vars = []
+
+    label_tasks = tk.Label(janela_tasks, text="Selecione as tasks (Task - Local)", font=("Arial", 20, "bold"),
+                               width=30, justify="center")
+    label_tasks.pack(pady=10)
+
     for pergunta in perguntas:
         pergunta_var = tk.IntVar()
         perguntas_vars.append(pergunta_var)
