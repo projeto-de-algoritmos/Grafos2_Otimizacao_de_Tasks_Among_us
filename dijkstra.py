@@ -1,6 +1,5 @@
 import heapq
 
-
 def dijkstra(grafo, no_inicial, tasks):
     distances = {}  # Dicionário para armazenar as distâncias mínimas
     previous = {}   # Dicionário para armazenar o nó anterior no caminho mais curto
